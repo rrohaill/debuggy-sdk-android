@@ -4,6 +4,28 @@ plugins {
     id 'maven-publish'
 }
 
+// Place the version of your library here
+def getVersionName = { ->
+    return "0.0.1"
+}
+
+// Add the name of your library here
+def getArtifactId = { ->
+    return "debuggy-sdk"
+}
+
+// Add the group ID of your library here
+def getGroupId = { ->
+    return "dev.rrohaill"
+}
+
+// Prepare URL of maven package.
+// Replace 'rrohaill' with your github repo's username or organization name.
+// Replace 'debuggy-sdk-android' with the name of github repo
+def getGitHubUrl = { ->
+    return "https://maven.pkg.github.com/rrohaill/debuggy-sdk-android"
+}
+
 android {
     compileSdk 32
 
@@ -12,6 +34,7 @@ android {
         targetSdk 32
         versionCode 1
         versionName "0.0.1"
+        setProperty("archivesBaseName", "${getArtifactId()}")
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,28 +61,6 @@ android {
 
 }
 
-// Place the version of your library here
-def getVersionName = { ->
-    return "0.0.1"
-}
-
-// Add the name of your library here
-def getArtifactId = { ->
-    return "debuggy-sdk"
-}
-
-// Add the group ID of your library here
-def getGroupId = { ->
-    return "dev.rrohaill"
-}
-
-// Prepare URL of maven package.
-// Replace 'rrohaill' with your github repo's username or organization name.
-// Replace 'analytics-sdk-android' with the name of github repo
-def getGitHubUrl = { ->
-    return "https://maven.pkg.github.com/rrohaill/debuggy-sdk-android"
-}
-
 publishing {
     publications {
         bar(MavenPublication) {
@@ -67,7 +68,7 @@ publishing {
             artifactId getArtifactId()
             version getVersionName()
             // Place the path of your artifact here
-            artifact("$buildDir/libs/${getArtifactId()}.jar")
+            artifact("$buildDir/outputs/aar/${getArtifactId()}-release.aar")
         }
     }
     repositories {
@@ -85,6 +86,7 @@ publishing {
             }
         }
     }
+
 }
 
 dependencies {
