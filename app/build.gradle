@@ -1,0 +1,101 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 32
+        versionCode 1
+        versionName "0.0.1"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+}
+
+// Place the version of your library here
+def getVersionName = { ->
+    return "0.0.1"
+}
+
+// Add the name of your library here
+def getArtifactId = { ->
+    return "debuggy-sdk"
+}
+
+// Add the group ID of your library here
+def getGroupId = { ->
+    return "dev.rrohaill"
+}
+
+// Prepare URL of maven package.
+// Replace 'mohitrajput987' with your github repo's username or organization name.
+// Replace 'analytics-sdk-android' with the name of github repo
+def getGitHubUrl = { ->
+    return "https://maven.pkg.github.com/rrohaill/debuggy-sdk-android"
+}
+
+publishing {
+    publications {
+        bar(MavenPublication) {
+            groupId getGroupId()
+            artifactId getArtifactId()
+            version getVersionName()
+            // Place the path of your artifact here
+            artifact("$buildDir/libs/${getArtifactId()}.jar")
+        }
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+
+            url = uri(getGitHubUrl())
+            credentials {
+                username = "rrohaill"
+                password = ""
+            }
+        }
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.5.0'
+    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    api 'com.squareup:seismic:1.0.2'
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}

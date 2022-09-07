@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Debuggy</string>
+
+    <string name="logs">Logs</string>
+    <string name="log_info">Info</string>
+    <string name="log_request">Request</string>
+    <string name="log_response">Response</string>
+    <string name="log_exception">Exception</string>
+    <string name="share">share</string>
+</resources>

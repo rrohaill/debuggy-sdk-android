@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/headers_coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".HeadersFragment">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/headers_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/default_spacing"
+            android:textColor="@color/black" />
+
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/headers_share_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="@dimen/default_spacing"
+        android:clickable="true"
+        android:contentDescription="@string/share"
+        android:focusable="true"
+        android:src="@drawable/ic_share"
+        app:backgroundTint="@color/white"
+        app:fabSize="normal"
+        app:useCompatPadding="true" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
