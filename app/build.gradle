@@ -78,12 +78,10 @@ publishing {
 
             Properties properties = new Properties()
             properties.load(project.rootProject.file('local.properties').newDataInputStream())
-            def githubUsername = properties.getProperty('GITHUB_USERNAME')
-            def githubToken = properties.getProperty('GITHUB_TOKEN')
 
             credentials {
-                username = githubUsername
-                password = githubToken
+                username = properties.getProperty('GITHUB_USERNAME', "")
+                password = properties.getProperty('GITHUB_TOKEN', "")
             }
         }
     }
