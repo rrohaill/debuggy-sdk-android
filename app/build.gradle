@@ -54,7 +54,7 @@ def getGroupId = { ->
 }
 
 // Prepare URL of maven package.
-// Replace 'mohitrajput987' with your github repo's username or organization name.
+// Replace 'rrohaill' with your github repo's username or organization name.
 // Replace 'analytics-sdk-android' with the name of github repo
 def getGitHubUrl = { ->
     return "https://maven.pkg.github.com/rrohaill/debuggy-sdk-android"
@@ -75,9 +75,15 @@ publishing {
             name = "GitHubPackages"
 
             url = uri(getGitHubUrl())
+
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file('local.properties').newDataInputStream())
+            def githubUsername = properties.getProperty('GITHUB_USERNAME')
+            def githubToken = properties.getProperty('GITHUB_TOKEN')
+
             credentials {
-                username = "rrohaill"
-                password = ""
+                username = githubUsername
+                password = githubToken
             }
         }
     }
