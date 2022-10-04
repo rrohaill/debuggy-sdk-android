@@ -7,4 +7,6 @@
     <string name="log_response">Response</string>
     <string name="log_exception">Exception</string>
     <string name="share">share</string>
+    <string name="search">Search</string>
+    <string name="delete">delete</string>
 </resources>

@@ -1,8 +1,12 @@
-package dev.rohail.debuggy.listener;
+package dev.rohail.debuggy.listener
 
-import dev.rohail.debuggy.interceptor.ResponseExceptionWrapper;
-import okhttp3.Request;
+import dev.rohail.debuggy.interceptor.ResponseExceptionWrapper
+import okhttp3.Request
 
-public interface OnItemClickListener {
-    void onItemClicked(Request request, ResponseExceptionWrapper responseExceptionWrapper, int position);
+interface OnItemClickListener {
+    fun onItemClicked(
+        request: Request,
+        responseExceptionWrapper: ResponseExceptionWrapper,
+        position: Int
+    )
 }

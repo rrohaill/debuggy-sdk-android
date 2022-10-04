@@ -11,16 +11,11 @@ import dev.rohail.debuggy.interceptor.utils.OkHttpUtils
 import okhttp3.Request
 
 class LogDetailActivity : AppCompatActivity() {
-    companion object {
-        val LOG_POSITION = "log-position"
-    }
 
     private lateinit var binding: ActivityLogDetailBinding
     private lateinit var tabsAdapter: TabsAdapter
 
     private val interceptor: DebugInterceptor by lazy { DebugInterceptor.create() }
-
-    private var logPosition = -1
 
     private lateinit var request: Request
     private lateinit var responseExceptionWrapper: ResponseExceptionWrapper
@@ -30,16 +25,12 @@ class LogDetailActivity : AppCompatActivity() {
         binding = ActivityLogDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        logPosition = intent.getIntExtra(LOG_POSITION, -1)
-        if (logPosition == -1) {
-            finish()
-        }
+        interceptor.getSearchLog()?.let {
+            this.request = it.first
+            this.responseExceptionWrapper = it.second
 
-        val (first, second) = interceptor.getLogs()[logPosition]
-        this.request = first
-        this.responseExceptionWrapper = second
-
-        setUpTabs()
+            setUpTabs()
+        } ?: finish()
     }
 
     private fun setUpTabs() {

@@ -1,6 +1,7 @@
 package dev.rohail.debuggy.interceptor
 
 import android.content.Context
+import android.util.Log
 import com.squareup.seismic.ShakeDetector
 import dev.rohail.debuggy.interceptor.utils.OkHttpUtils.cloneResponse
 import okhttp3.Interceptor
@@ -16,9 +17,10 @@ object DebugInterceptor : Interceptor {
 
     private lateinit var shakeDetector: MyShakeDetector
     private val logs = mutableListOf<Pair<Request, ResponseExceptionWrapper>>()
+    private var searchLog: Pair<Request, ResponseExceptionWrapper>? = null
 
     fun create(): DebugInterceptor {
-        if (!DebugInterceptor::instance.isInitialized)
+        if (!::instance.isInitialized)
             instance = this
 
         return instance
@@ -34,7 +36,7 @@ object DebugInterceptor : Interceptor {
         val response: Response = try {
             chain.proceed(request)
         } catch (e: Exception) {
-            logs.add(
+            instance.logs.add(
                 Pair(
                     request,
                     ResponseExceptionWrapper(exception = e, responseTime = "")
@@ -50,30 +52,61 @@ object DebugInterceptor : Interceptor {
             response.request.url, (t2 - t1) / 1e6
         )
 
-        logs.add(
-            Pair(
-                request,
-                ResponseExceptionWrapper(
-                    response = cloneResponse(response),
-                    responseTime = responseTime
+        try {
+            instance.logs.add(
+                Pair(
+                    request,
+                    ResponseExceptionWrapper(
+                        response = cloneResponse(response),
+                        responseTime = responseTime
+                    )
                 )
             )
-        )
+        } catch (e: Exception) {
+            Log.d("DebugInterceptor", e.localizedMessage ?: "index out of bound exception")
+        }
         return response
     }
 
     fun getLogs(): List<Pair<Request, ResponseExceptionWrapper>> {
-        return logs
+        return instance.logs
     }
 
+    fun clearLogs() {
+        if (::instance.isInitialized) {
+            instance.logs.clear()
+            instance.searchLog = null
+        }
+    }
+
+    fun removeLogItem(item: Pair<Request, ResponseExceptionWrapper>) {
+        instance.logs.remove(item)
+    }
+
+    fun addItem(position: Int, item: Pair<Request, ResponseExceptionWrapper>) {
+        instance.logs.add(position, item)
+    }
+
+    fun setSearchLog(item: Pair<Request, ResponseExceptionWrapper>) {
+        if (::instance.isInitialized)
+            instance.searchLog = item
+    }
+
+    fun getSearchLog(): Pair<Request, ResponseExceptionWrapper>? =
+        if (::instance.isInitialized)
+            instance.searchLog
+        else
+            null
+
+
     fun start(context: WeakReference<Context>) {
-        start(context, ShakeDetector.SENSITIVITY_MEDIUM)
+        start(context, ShakeDetector.SENSITIVITY_HARD)
     }
 
     fun start(context: WeakReference<Context>, sensitivity: Int) {
         if (!instance::shakeDetector.isInitialized) {
-            shakeDetector = MyShakeDetector()
-            shakeDetector.start(context = context, sensitivity = sensitivity)
+            instance.shakeDetector = MyShakeDetector()
+            instance.shakeDetector.start(context = context, sensitivity = sensitivity)
         }
     }
 
@@ -81,6 +114,7 @@ object DebugInterceptor : Interceptor {
         if (!instance::shakeDetector.isInitialized) {
             return
         }
-        shakeDetector.stop()
+        instance.shakeDetector.stop()
     }
+
 }
