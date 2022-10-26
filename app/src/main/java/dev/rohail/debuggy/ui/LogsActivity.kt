@@ -3,7 +3,6 @@ package dev.rohail.debuggy.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -111,7 +110,7 @@ class LogsActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener,
                 return true
             }
 
-            override fun onSwiped(@NonNull viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 interceptor.getLogs().getOrNull(viewHolder.adapterPosition)?.let { item ->
                     val position = viewHolder.adapterPosition
                     interceptor.removeLogItem(item)
