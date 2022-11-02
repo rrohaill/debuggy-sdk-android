@@ -16,10 +16,26 @@ To solve the above problem, we have built a library and naming it “Debug tool 
 
 Usage
 --------
+You can simply add interceptor in your client and shake your device to see screen with all the API calls.
+
+Example:
+Add in your Retrofit client
 ```kotlin
 val client = OkHttpClient.Builder()
     client.addInterceptor(DebugInterceptor.create())
         .build()
+```
+
+To use shake device feature add this line in your activity/fragment
+```kotlin
+DebugInterceptor.start(WeakReference(this))
+```
+
+If you do not want to use shake device feature and would like to open screen manually then:
+```kotlin
+val myIntent = Intent(this, LogsActivity::class.java)
+myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+startActivity(myIntent)
 ```
 
 Download
