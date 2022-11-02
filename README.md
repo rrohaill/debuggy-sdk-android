@@ -14,6 +14,10 @@ There are some third-party libraries that we can use to display a screen with al
 * Solution: 
 To solve the above problem, we have built a library and naming it “Debug tool or Debuggy”.
 
+<p align="center">
+<img src="/appUI.gif?raw=true" width="150" />
+</p>
+
 Usage
 --------
 You can simply add interceptor in your client and shake your device to see screen with all the API calls.
@@ -76,6 +80,10 @@ Step 2. Add the dependency
     <version>0.0.3</version>
 </dependency>
 ```
+
+Contributing
+-----------
+If you would like to contribute code you can do so by forking the repository and create a Pull request. You can also create an Issue to report bugs or features that you want to see.
 
 Support
 -------
