@@ -79,7 +79,7 @@ Step 2. Add the dependency
 
 Support
 -------
-[![](https://giphy.com/gifs/buymeacoffee-creator-buy-me-a-coffee-support-7kZE0z52Sd9zSESzDA)](https://www.buymeacoffee.com/rrohaill)
+[![](https://media.giphy.com/media/7kZE0z52Sd9zSESzDA/giphy.gif)](https://www.buymeacoffee.com/rrohaill)
 
 License
 -------
