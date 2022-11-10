@@ -87,7 +87,11 @@ If you would like to contribute code you can do so by forking the repository and
 
 Support
 -------
-[![](https://media.giphy.com/media/7kZE0z52Sd9zSESzDA/giphy.gif)](https://www.buymeacoffee.com/rrohaill)
+If this project help you reduce time to develop, you can give me a cup of coffee :)
+
+<a href="https://www.buymeacoffee.com/rrohaill" target="_blank"><img src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
+
+### Show some :heart: and star the repo to support the project
 
 License
 -------
